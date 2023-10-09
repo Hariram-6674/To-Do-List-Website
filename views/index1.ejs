@@ -1,0 +1,126 @@
+<%- include('partials/header.ejs') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script src="https://raw.github.com/mattpowell/localstorageshim/master/localstorageshim.min.js" type="text/javascript"></script>
+<script src="garlic.js"></script>
+
+
+<center><h1>Work</h1></center>
+<center>
+<div class="page-content page-container" id="page-content">
+  <div class="padding">
+      <div class="row container d-flex justify-content-center">
+          <div class="col-md-12">
+              <div class="card px-3">
+                  <div class="card-body">
+                      <div class="add-items d-flex"> <input type="text" class="form-control garlic-auto-save todo-list-input" placeholder="What do you need to do today?"> <button class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button> </div>
+                      <div class="list-wrapper">
+                          <ul class="d-flex flex-column-reverse todo-list">
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+</center>
+<script>
+  (function($) {
+    'use strict';
+    $(function() {
+      var tasks3 = JSON.parse(sessionStorage.getItem('tasks3'))||[];
+      var todoListItem = $('.todo-list');
+      var todoListInput = $('.todo-list-input');
+
+      if(sessionStorage.getItem('tasks3')) {
+        tasks3.map((task)=>{
+          createTask(task);
+        })
+      }
+      
+
+      $('.todo-list-add-btn').on("click", function(event) {
+        event.preventDefault();
+  
+        var item = $(this).prevAll('.todo-list-input').val();
+        
+        const task = {id:new Date().getTime(), name: item, isCompleted:false};
+
+        tasks3.push(task);
+        sessionStorage.setItem('tasks3',JSON.stringify(tasks3));
+  
+        createTask(task);
+
+        todoListInput.val("");
+      });
+
+      
+      
+      
+      var check = false;
+      todoListItem.on('change', '.checkbox', function(e) {
+        const taskid1 = e.target.closest('li').id;
+        $(this).closest("li").toggleClass('completed');
+        if ($(this).attr('checked')) {
+          $(this).removeAttr('checked');
+          unCheck(taskid1);
+        } else {
+          $(this).attr('checked', 'checked');
+          checkTask(taskid1);
+        }
+  
+      });
+
+      function checkTask(taskid1){
+        const tasks31 = tasks3.find((task)=>task.id==parseInt(taskid1))
+        tasks31.isCompleted = true;
+        console.log(tasks31);
+        sessionStorage.setItem('tasks3',JSON.stringify(tasks3));
+      }
+      function unCheck(taskid1){
+        const tasks31 = tasks3.find((task)=>task.id==parseInt(taskid1))
+        tasks31.isCompleted = false;
+        console.log(tasks31);
+        sessionStorage.setItem('tasks3',JSON.stringify(tasks3));
+      }
+      function createTask(task){
+        const taskel = document.createElement('li');
+        taskel.setAttribute('id',task.id);
+
+        if(task.isCompleted){
+          taskel.classList.add('completed');
+
+          const tet1 = `<div class='form-check'><label class='form-check-label'><input class='checkbox' id='${task.id}' checked="" type='checkbox'/>  ${task.name}  <i class='input-helper'></i></label></div><i class='remove'><iconify-icon icon='mdi:close-circle'></iconify-icon></i>`;
+        
+          taskel.innerHTML = tet1;
+          todoListItem.append(taskel);
+        }
+        else{
+
+          const tet = `<div class='form-check'><label class='form-check-label'><input class='checkbox' id='${task.id}' type='checkbox'/>  ${task.name}  <i class='input-helper'></i></label></div><i class='remove'><iconify-icon icon='mdi:close-circle'></iconify-icon></i>`;
+        
+          taskel.innerHTML = tet;
+          todoListItem.append(taskel);
+        }
+      }
+  
+      todoListItem.on('click', '.remove', function(e) {
+        const taskid = e.target.closest('li').id;
+        removeTask(taskid);
+      });
+
+      function removeTask(taskid){
+        tasks3 = tasks3.filter((task)=>task.id!=parseInt(taskid))
+        sessionStorage.setItem('tasks3',JSON.stringify(tasks3));
+        $('#'+taskid).remove();
+      }
+  
+    });
+  })(jQuery);
+</script>
+
+<%- include('partials/footer.ejs') %>
