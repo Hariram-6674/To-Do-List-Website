@@ -2,6 +2,9 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from 'path';
 const app = express();
+import { dirname } from "path";
+import { fileURLToPath } from "url";
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
