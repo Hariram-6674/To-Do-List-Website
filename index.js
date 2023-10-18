@@ -14,7 +14,7 @@ const bool = false;
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public/"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/",(req,res)=>{
