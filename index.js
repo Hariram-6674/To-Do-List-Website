@@ -20,11 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/",(req,res)=>{
     let d = new Date();
     let today = months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear(); 
-    res.render("index.ejs",{today:today});
+    res.render("index",{today:today});
 });
 
 app.get("/work",(req,res)=>{
-    res.render("index1.ejs");
+    res.render("index1");
 });
 
 
