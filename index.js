@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 
 const app = express();
+app.engine('ejs', require('ejs').__express);
 const port = 3000;
 
 const bool = false;
