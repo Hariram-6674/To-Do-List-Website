@@ -4,6 +4,9 @@
   "description": "new to do list site",
   "main": "index.js",
   "type": "module",
+  "engined":{
+    "node":"14.x"
+  },
   "scripts": {
     "start":"nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
