@@ -2,7 +2,7 @@
 
 A To-Do list project built with Node and Express.
 
-<img src="https://github.com/Hariram-6674/To-Do-List-Website/blob/main/ezgif-1-12bdfeae7a.gif" width="200px">
+![todo list screenshot](https://github.com/Hariram-6674/To-Do-List-Website/blob/main/ezgif-1-12bdfeae7a.gif)
 
 ## Features
 
