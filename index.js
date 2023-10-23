@@ -10,7 +10,6 @@ app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 const port = 3000;
 
-const bool = false;
 
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
